@@ -20,6 +20,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/* grades.csv
+John,100,60,35,80,70
+Mary,85,61,33,74,80
+Joe,45,51,83,94,86
+Alex,86,92,94,91,83
+*/
 
 public class Grades {
 
@@ -28,7 +34,7 @@ public class Grades {
         File csvFile = new File (csvFileName);
         
         String[] mapLine;
-        int gradesTotal;
+        double gradesTotal;
         
         HashMap<String, Double> studentGPA = new HashMap<String, Double> ();
 
@@ -38,13 +44,13 @@ public class Grades {
                 
                 while ( sc.hasNext()) {
                     mapLine = sc.nextLine().split(",");
-                    gradesTotal = 0;
+                    gradesTotal = 0.0;
                     
                     for ( int i = 1; i < mapLine.length; i++) {
                         gradesTotal += Integer.parseInt(mapLine[i]);
                     }
                     
-                    studentGPA.put(mapLine[0],(double)(gradesTotal/(mapLine.length-1)) );
+                    studentGPA.put(mapLine[0],(gradesTotal/(mapLine.length-1)));
                 }
                 
             } catch (Exception e) {
