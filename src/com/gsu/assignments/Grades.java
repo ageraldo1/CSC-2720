@@ -68,8 +68,5 @@ public class Grades {
 
         System.out.println (sortedList);
  
-       
-        
-        
     }
 }
