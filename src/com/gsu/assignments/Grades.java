@@ -73,6 +73,19 @@ public class Grades {
         });
 
         System.out.println (sortedList);
+        
+        System.out.println ("Full List of grades");
+        System.out.println (sortedList);
+        
+        for ( int i = 0; i < 3; i++) {
+            
+            if ( i > sortedList.size () ) {
+                break;
+            }
+            
+            System.out.println (sortedList.get(i));
+            
+        }        
  
     }
 }
