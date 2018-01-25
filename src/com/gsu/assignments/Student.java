@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.gsu.classwork;
+package com.gsu.assignments;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -14,36 +15,52 @@ import java.util.ArrayList;
 public class Student implements Comparable<Student> {
     
     private String name;
-    private ArrayList<Integer> scores;
+    private int[] scores;
+    private double gradeAverage;
+    
+    public Student(String studentName, int[] studentScores) {
+        this.name = studentName;
+        this.scores = studentScores;
+        
+        setAverage();
+    }
     
     public String getName() {
         return this.name;
     }
     
-    public double getAverage() {
+    private void setAverage() {
         double gradesTotal = 0.0;
         
-
-        for ( int i = 0; i < scores.size(); i++) {
-             gradesTotal += scores.get(i);
+        for ( int i = 0; i < scores.length; i++) {
+             gradesTotal += scores[i];
         }
         
-        return (gradesTotal / (scores.size() -1));
+        this.gradeAverage = (gradesTotal / (scores.length));
+    }
+
+    public double getAverage() {
+        
+        return this.gradeAverage;
     }
     
-    public String getGrades() {
-        return scores.toString();
+    public int[] getGrades() {
+        return scores;
     }
 
     public int compareTo(Student t) {
-        if ( this.getAverage() < t.getAverage()  ) {
+        if ( t.getAverage() < this.getAverage()  ) {
             return -1;
-        } else if  ( this.getAverage() == t.getAverage() ) {
+        } else if  ( t.getAverage() == this.getAverage() ) {
             return 0;
             
         } else {
             return 1;
         }
-    }
+    }    
     
+    @Override
+    public String toString() {
+        return "Student : " + this.name + ", Scores : " + Arrays.toString(scores) + ", Grade average : " + this.gradeAverage;
+    }
 }
