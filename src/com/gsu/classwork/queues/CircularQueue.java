@@ -22,8 +22,7 @@ public class CircularQueue {
     private int backIndex;
     private int currentSize;
     private int totalResizes;
-    private boolean resize;
-    
+    private boolean resize;    
     
     public CircularQueue () {
         this.frontIndex = 0;
@@ -105,6 +104,26 @@ public class CircularQueue {
         return objQueue;
     }
     
+    public String printFormatQueue() {
+        int position = this.frontIndex;
+        StringBuilder fQueue = new StringBuilder("[");
+        
+        for ( int i = 0; i < this.MAX_QUEUE_SIZE; i ++) {
+            if ( queue[position] != null) {
+                if ( fQueue.length() > 1 ) {
+                    fQueue.append(", ");
+                }
+                
+                fQueue.append(queue[position].toString());
+                position = getNextPosition(position);
+            }            
+        }
+        
+        fQueue.append("]");
+        
+        return fQueue.toString();
+    }
+    
     private void expandQueue() {
         
         Object[] expandedQueue = new Object[queue.length + ((int)(queue.length * this.INCREASE_FACTOR)) ];
@@ -117,15 +136,7 @@ public class CircularQueue {
     
     private int getNextPosition(int index) {
         return ( index + 1) % (MAX_QUEUE_SIZE);
-    }
-    
-            
-    
-            
-    
-    
-    
-    
+    }    
     
 }
 

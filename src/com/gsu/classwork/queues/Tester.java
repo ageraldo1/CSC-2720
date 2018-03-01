@@ -62,7 +62,6 @@ public class Tester {
         queue.showStats();
 
         
-        /*
         System.out.println ("Peek...............:" + queue.peek());
         
         queue.add(rand.nextInt(RANDOM_RANGE));
@@ -71,7 +70,9 @@ public class Tester {
         System.out.println ("Queue..............:" + queue.toString());
         queue.showStats();
         
-        */
+        System.out.println ("Format Queue......:" + queue.printFormatQueue());
+        
+        
         System.out.println (header);
         System.out.println ("Process completed without errors");
         System.out.println (header);
