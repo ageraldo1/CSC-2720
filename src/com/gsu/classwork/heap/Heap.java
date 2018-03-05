@@ -16,6 +16,9 @@ import java.util.NoSuchElementException;
 public class Heap<T extends Comparable<T>> {
 
     // heap visualization : https://www.cs.usfca.edu/~galles/visualization/Heap.html
+    // left child : i * 2
+    // right child : (i * 2) + 1
+    // parent ( i / 2) -- floor
     
 private ArrayList<T> items;
      
