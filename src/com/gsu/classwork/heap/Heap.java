@@ -15,6 +15,8 @@ import java.util.NoSuchElementException;
  */
 public class Heap<T extends Comparable<T>> {
 
+    // heap visualization : https://www.cs.usfca.edu/~galles/visualization/Heap.html
+    
 private ArrayList<T> items;
      
     public Heap() {
