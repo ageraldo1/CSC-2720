@@ -49,12 +49,7 @@ public class Stack<E> implements GenericStack<E>  {
 
     @Override
     public boolean isFull() {
-        if ( this.expand == false ) {
-            return ( this.top == (this.elements.length -1));
-            
-        } else { 
-            return false;
-        }        
+        return ( this.top == (this.elements.length -1));
     }
 
     @Override
@@ -73,6 +68,7 @@ public class Stack<E> implements GenericStack<E>  {
         E element = null;
         
         if (isEmpty () == false) {
+            this.elements[this.top] = null;
             element = this.elements[this.top--];
         }
         
@@ -82,7 +78,12 @@ public class Stack<E> implements GenericStack<E>  {
     @Override
     public void push(E element) {
         if ( isFull () ) {
-            throw new IndexOutOfBoundsException("Stack is full"); 
+            if ( this.expand == false ) {
+                throw new IndexOutOfBoundsException("Stack is full"); 
+                
+            } else { 
+                expand();
+            }
         }
         
         elements[++this.top] = element;
@@ -104,6 +105,11 @@ public class Stack<E> implements GenericStack<E>  {
     @Override
     public String toString() {
         return Arrays.toString(elements);
+    }
+
+    @Override
+    public boolean isExpandable() {
+        return this.expand;
     }
     
 }

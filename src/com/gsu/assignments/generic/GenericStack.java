@@ -27,4 +27,5 @@ public interface GenericStack<E> {
     @Override
     public String toString();
     
+    public boolean isExpandable();
 }
