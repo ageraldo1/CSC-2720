@@ -67,7 +67,7 @@ public class Stack {
         
         return element;
     }
-    
+
     @Override
     public String toString() {
        return Arrays.toString(stack);
