@@ -32,7 +32,7 @@ public class Tester {
         System.out.println ("IsEmpty............: " + stack.isEmpty());
         System.out.println ("Stack Size.........: " + stack.size());
         System.out.println ("Stack content......: " + stack.toString());
-        System.out.println("Peek................:" + stack.peek());
+        System.out.println ("Peek................:" + stack.peek());
         System.out.println (header);
         
     }
@@ -51,7 +51,7 @@ public class Tester {
                 stack.push(rand.nextInt(100));
             }
 
-            printTests(stack);
+            printTests(stack);            
 
             value = rand.nextInt(DEFAULT_SIZE);
             System.out.println ("Removing " + value + " elements from Stack");
@@ -61,6 +61,7 @@ public class Tester {
             }
 
             printTests(stack);
+            stack.popAll();
             
         } else if ( testNr == 1 ) { // String
             System.out.println ("Test2 : String Stack with max size of " + DEFAULT_SIZE);
@@ -79,6 +80,10 @@ public class Tester {
                 stack.pop();
             }
 
+            printTests(stack);
+            
+            System.out.println ("Poping all elements");
+            stack.popAll();            
             printTests(stack);
         }       
     }

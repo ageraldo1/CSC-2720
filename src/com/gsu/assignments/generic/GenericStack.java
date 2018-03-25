@@ -23,4 +23,6 @@ public interface GenericStack<E> {
     public String toString();
     
     public boolean isExpandable();
+    
+    public void popAll();
 }

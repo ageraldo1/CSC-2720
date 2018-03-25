@@ -11,7 +11,7 @@ import java.util.Arrays;
 /**
  *
  * @author Alexandre
- * @param <T>
+ * @param <E>
  */
 public class Stack<E> implements GenericStack<E>  {
 
@@ -110,6 +110,13 @@ public class Stack<E> implements GenericStack<E>  {
     @Override
     public boolean isExpandable() {
         return this.expand;
+    }
+
+    @Override
+    public void popAll() {
+        while ( this.isEmpty() == false) {
+            this.pop();
+        }
     }
     
 }
