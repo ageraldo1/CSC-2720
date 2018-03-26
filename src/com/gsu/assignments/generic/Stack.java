@@ -68,8 +68,10 @@ public class Stack<E> implements GenericStack<E>  {
         E element = null;
         
         if (isEmpty () == false) {
+            element = this.elements[this.top];
             this.elements[this.top] = null;
-            element = this.elements[this.top--];
+            
+            this.top--;
         }
         
         return element;

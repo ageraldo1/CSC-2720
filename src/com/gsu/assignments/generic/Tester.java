@@ -19,7 +19,7 @@ public class Tester {
         
         runTests(0);
         runTests(1);
-
+        
     }
     
     public static void printTests(GenericStack stack) {
@@ -82,7 +82,7 @@ public class Tester {
 
             printTests(stack);
             
-            System.out.println ("Poping all elements");
+            System.out.println ("Popping all elements");
             stack.popAll();            
             printTests(stack);
         }       

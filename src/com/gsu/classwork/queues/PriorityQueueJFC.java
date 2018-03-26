@@ -24,7 +24,7 @@ public class PriorityQueueJFC {
         squeue.add("C");
         
         System.out.println ("String PriorityQueue");
-        System.out.println ("First Element....: " + squeue.peek());
+        System.out.println ("First Element....: " + squeue.peek()); // A
         System.out.println ("Queue............: " + squeue.toString());
         
         nqueue.add(100);
