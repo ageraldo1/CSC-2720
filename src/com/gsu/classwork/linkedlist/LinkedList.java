@@ -5,11 +5,15 @@
  */
 package com.gsu.classwork.linkedlist;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
  /**
  *
  * @author Alexandre
  */
-public class LinkedList {
+public class LinkedList implements Iterable {
+    
     private Node head;
     private int size;
     
@@ -148,6 +152,47 @@ public class LinkedList {
         sb.append(n);        
         return sb.toString();
     }
+
+    @Override
+    public Iterator iterator() {
+        return new LinkedListIterator();
+        
+    }
+    
+    private class LinkedListIterator implements Iterator{
+        
+        private Node current = null;
+        
+        @Override
+        public boolean hasNext() {
+            if (this.current == null && head != null ) {
+                return true;                
+                
+            } else if ( this.current != null ) {
+                 return current.getNext() != null;                 
+            }
+            
+            return false;
+        }
+
+        @Override
+        public Object next() {
+            if ( this.current == null && head != null) {
+                this.current = head;
+                
+                return this.current;
+                
+            } else if ( this.current != null ) {
+                this.current = this.current.getNext();
+                
+                return this.current;
+            }
+            
+            throw new NoSuchElementException(); // when LinkedList is empty
+        }
+    }        
+}
+    
      
     
-}
+
