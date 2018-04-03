@@ -16,7 +16,14 @@ public class BoxTest {
     
     public static void main (String[] args) {
         
-        List< Box<String> > boxes = new ArrayList<>();
+        List<Box> boxes = new ArrayList<>();
+        
+        //Integer w = new Integer(1);
+        //List<Integer> l = new ArrayList<>();
+        
+        //ArrayList<Box> objList = new ArrayList();
+        
+        
         
         Box box = new Box<>();
         box.set("Value1");
