@@ -5,6 +5,8 @@
  */
 package com.gsu.classwork.linkedlist;
 
+import java.util.Iterator;
+
 /**
  *
  * @author Alexandre
@@ -42,6 +44,18 @@ public class Tester {
         System.out.println("StudentList.......: " + students.printList());
         System.out.println("List Size.........: " + students.size());
         System.out.println("********************************************");
+        
+        
+        // Iterator
+        students.addAtEnd(5, "Student5");
+        students.addAtEnd(6, "Student6");
+        students.addAtEnd(7, "Student7");
+        
+        Iterator it = students.iterator();
+        
+        while ( it.hasNext()) {
+            System.out.println (it.next());
+        }
         
         
         
