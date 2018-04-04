@@ -13,13 +13,13 @@ import java.util.NoSuchElementException;
  * @author Alexandre
  * @param <E>
  */
-public class GenericLinkedList<E> implements Iterable {
+public class GenericLinkedList<E extends Comparable<E>> implements Iterable {
 
     private Node<E> first;
     private int size;
 
     // Node Inner Class
-    class Node<E> {
+    class Node<E>  {
         E data;
         Node<E> next;
     }
@@ -29,6 +29,7 @@ public class GenericLinkedList<E> implements Iterable {
         private Node<E> position;
         private Node<E> previous;
         private boolean isAfterNext;
+        
 
         public GenericLinkedListIterator() {
             this.position = null;
@@ -220,6 +221,45 @@ public class GenericLinkedList<E> implements Iterable {
         }
     }
     
+    public void addSort(E element) {
+        Node<E> newNode = new Node<>();
+        newNode.data = element;
+        newNode.next = null;
+        
+        if ( this.first == null ) { 
+            addFirst(element);
+            
+        } else {
+            Node<E> current = this.first;
+            Node<E> previous = null;
+            
+            while ( current != null ) {
+                
+                if ( compareTo(newNode.data, current.data) < 1 ) { // newNode < current
+                    break;
+                }
+
+                previous = current;
+                current = current.next;
+            }
+            
+            if ( current == null ) { // last node
+                addLast(element);
+            }
+            
+            if ( this.first == current ) { // changing head
+                this.first = newNode;
+            }
+            
+            if ( previous != null ) { // not in the tail of the list
+                previous.next = newNode;
+            }
+            
+            newNode.next = current;
+            this.size++;
+        }
+    }
+    
     public E removeFirst() {
         if ( this.first == null ) {
             throw new NoSuchElementException();
@@ -267,6 +307,28 @@ public class GenericLinkedList<E> implements Iterable {
         return split;
     }
     
+    private <E extends Comparable<E>> int compareTo(E source, E target) {
+        if ( source.compareTo(target) > 0 ) {
+            return 1;
+
+        } else if ( source.compareTo(target) < 0 ) {
+            return -1;
+            
+        } else { 
+            return 0;    
+        }
+    }        
+    
+    public void removeAll() {
+               
+        Node<E> n = this.first;
+            
+        while ( n != null ) {
+            removeFirst();
+            
+            n = n.next;
+        }
+    }
     
     @Override
     public Iterator iterator() {

@@ -66,14 +66,21 @@ public class GenericTester {
         System.out.println ("Reversed list..............: " + printLinkedList(list));
         
         
-        
         GenericLinkedList.Node nodeList = list.splitList();
-        
 
         System.out.println ("Split list[1]..............: " + printLinkedList(list));
         System.out.println ("Split list[2]..............: " + printNodeList(nodeList));
+        
+        list.removeAll();
+        
+        for ( int i = 0; i < 20; i++) {
+            list.addSort(rand.nextInt(50));
+        }
 
+        System.out.println ("Sorted LinkedList..........: " + printLinkedList(list));
+        
     }    
+    
 
     private static String printLinkedList(GenericLinkedList list) {
         StringBuilder sb = new StringBuilder();
