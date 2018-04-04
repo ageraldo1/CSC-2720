@@ -1,0 +1,29 @@
+ private boolean sortList () {
+         Node<E> current;
+         Node<E> next;
+         
+         current = this.first;
+         
+         if ( current.next == null ) return true;
+         next = current.next;
+         
+
+        while ( current != null ) {
+            
+            if ( (Integer)current.data < (Integer)next.data ) {
+                return true;
+                
+            } else { 
+                current.next = next.next;
+                next.next = current;
+                
+                this.first = next;
+            }
+            
+            current = current.next;
+            if ( current.next != null ) next = current.next;
+        }         
+        
+        return true;
+
+    }
