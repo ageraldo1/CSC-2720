@@ -246,9 +246,9 @@ public class GenericLinkedList<E> implements Iterable {
             throw new NoSuchElementException();
         }
         
-        Node<E> list = this.first;
+        Node<E> list   = this.first;
         Node<E> runner = list.next;
-        Node<E> split = null;
+        Node<E> split  = null;
         
         while (runner != null ) {
             runner = runner.next;
