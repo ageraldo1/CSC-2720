@@ -11,10 +11,12 @@ import java.util.NoSuchElementException;
 /**
  *
  * @author Alexandre
+ * @param <E>
  */
 public class GenericLinkedList<E> implements Iterable {
 
     private Node<E> first;
+    private int size;
 
     // Node Inner Class
     class Node<E> {
@@ -22,8 +24,7 @@ public class GenericLinkedList<E> implements Iterable {
         Node<E> next;
     }
     
-    // GenericLinkedListIterator inner class
-    
+    // GenericLinkedListIterator inner class    
     class GenericLinkedListIterator implements Iterator<E> {
         private Node<E> position;
         private Node<E> previous;
@@ -73,6 +74,7 @@ public class GenericLinkedList<E> implements Iterable {
             
             if ( position == first ) {
                 removeFirst();
+                
             } else {
                 previous.next = position.next;
             }
@@ -85,6 +87,7 @@ public class GenericLinkedList<E> implements Iterable {
     
     public GenericLinkedList() {
         this.first = null;
+        this.size = 0;
     }
     
     public E getFirst() {
@@ -95,7 +98,7 @@ public class GenericLinkedList<E> implements Iterable {
         return this.first.data;
     }
     
-    private Node<E> getLast() {
+    public E getLast() {
         if ( this.first == null ) {
             throw new NoSuchElementException();
         }
@@ -106,32 +109,84 @@ public class GenericLinkedList<E> implements Iterable {
             element = element.next;
         }
         
-        return element;
+        return element.data;
     }
-    
-    private Node<E> getPrevious(Node<E> element) {
-        if ( this.first == null ) {
-            throw new NoSuchElementException();
-        }
-
-        Node<E> previous = this.first;
+   
+    private Node<E> getNode(E element) {
         
-        while ( previous.next != null ) {
+        Node<E> n = this.first;
+        
+        while ( n.next != null ) {
             
-            if ( previous.next == element ) {
-                break;
+            if ( n.data.equals(element)) {
+                return n;
             }
             
-            previous = previous.next;
+            n = n.next;
         }
         
-        return previous;
+        if ( n.data.equals(element)) {
+            return n;
+        } else {                
+            throw new NoSuchElementException();
+        }
     }
     
-    private Node<E> getNext(Node<E> element) {
-        return null;
+    public boolean contains(E element) {
+        Node<E> n;
+        
+        try {
+            n = getNode(element);
+            return true; 
+            
+        } catch ( NoSuchElementException e) {
+            return false;
+        }
+    }
+                
+    public void reverseElement(E element) {
+        Node<E> currentNode = null;
+        Node<E> nextNode = null;
+        
+        E currentData;
+        E nextData;
+        
+        currentNode = getNode(element);
+
+        if ( currentNode.next == null ) { // tail 
+            nextNode = this.first;
+            
+        } else {        
+            nextNode = currentNode.next;        
+        }
+        
+        currentData = currentNode.data;
+        nextData = nextNode.data;           
+
+        currentNode.data = nextData;
+        nextNode.data = currentData;
     }
     
+    public void reverseList() {
+        
+        Node<E> current;
+        Node<E> previous;
+        Node<E> next;
+        
+        current  = this.first; // start at head of the list
+        previous = null;      // at first time head will become tail
+        next     = null;
+        
+        while ( current != null ) {
+            next = current.next;     // save the next node 
+            current.next = previous; // reverse the link
+
+            previous = current;      // used in the next interation
+            current = next;          // move to the next node
+        }
+        
+        this.first = previous;        
+    }
     
     public void addFirst(E element) {
         Node<E> newNode = new Node<>();
@@ -139,25 +194,31 @@ public class GenericLinkedList<E> implements Iterable {
         newNode.next = first;
         
         this.first = newNode;
+        
+        this.size++;
     }
     
     public void addLast(E element) {
-        Node<E> lastNode = getLast();
+        
         Node<E> newNode = new Node<>();
-
         newNode.data = element;
+        newNode.next = null;
+        
+        Node<E> lastNode = getNode(getLast());
+        
         lastNode.next = newNode;
+        
+        this.size++;
     }
     
     public void add(E element) {
-        if ( this.first == null ) {
-            addFirst(element);
-            
-        } else {
+        if ( size() > 0 ) {
             addLast(element);
+            
+        } else { 
+            addFirst(element);
         }
     }
-    
     
     public E removeFirst() {
         if ( this.first == null ) {
@@ -166,6 +227,7 @@ public class GenericLinkedList<E> implements Iterable {
         
         E element = this.first.data;
         this.first = this.first.next;
+        this.size--;
         
         return element;
     }
@@ -175,37 +237,42 @@ public class GenericLinkedList<E> implements Iterable {
         return null;
     }
     
+    public int size() {
+        return this.size;
+    }
+    
+    public Node<E> splitList() {
+        if ( this.first == null ) {
+            throw new NoSuchElementException();
+        }
+        
+        Node<E> list = this.first;
+        Node<E> runner = list.next;
+        Node<E> split = null;
+        
+        while (runner != null ) {
+            runner = runner.next;
+            
+            if ( runner == null ) {
+                break;
+            }
+            
+            runner = runner.next;
+            list   = list.next;
+        }
+        
+        split = list.next;
+        list.next = null;
+        
+        return split;
+    }
+    
     
     @Override
     public Iterator iterator() {
         return new GenericLinkedListIterator();
-    }
-    
-    public static void main (String args[]) {
-        GenericLinkedList<String> list = new GenericLinkedList<>();
-        Iterator it;
-        
-        list.add("Student 1");
-        list.add("Student 2");
-        list.add("Student 3");
-        list.add("Student 4");
-        list.add("Student 5");
-        
-            
-        
-        it = list.iterator();
-        
-        while ( it.hasNext()) {
-            System.out.println (it.next());
-        }
-        
-        
-        
-        //System.out.println (list.getLast().data);
-        
-    }
+    }  
     
 }
-
 
 
