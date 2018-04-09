@@ -273,8 +273,23 @@ public class GenericLinkedList<E extends Comparable<E>> implements Iterable {
     }
     
     public E removeLast() {
-        // 
-        return null;
+        
+        if ( this.first == null ) {
+            throw new NoSuchElementException();
+        }
+        
+        Node<E> last = this.first;
+        Node<E> previous = null;
+        
+        while ( last.next != null ) {
+            previous = last;
+            
+            last = last.next;
+        }
+        
+        previous.next = null;
+        
+        return last.data;
     }
     
     public int size() {

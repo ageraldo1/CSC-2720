@@ -78,6 +78,11 @@ public class GenericTester {
         }
 
         System.out.println ("Sorted LinkedList..........: " + printLinkedList(list));
+        System.out.println ("Remove Last................: " + list.removeLast());
+        System.out.println ("Remove Last................: " + list.removeLast());
+        System.out.println ("Remove Last................: " + list.removeLast());
+        System.out.println ("LinkedList.................: " + printLinkedList(list));
+        
         
     }    
     
