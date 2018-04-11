@@ -1,0 +1,136 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.gsu.classwork.trees;
+
+/**
+ *
+ * @author ageraldo1
+ */
+public class BSTree {
+    
+    private Node root;
+    private int size;
+    
+    public BSTree() {
+        this.root = null;
+        this.size = 0;
+    }
+            
+    
+    class Node  {
+        Comparable data;
+        Node left;
+        Node right;
+        
+        public void addNode(Node n) {
+            int c = n.data.compareTo(this.data);
+            
+            if ( c < 0 ) {
+                if ( this.left == null) {
+                    this.left = n;
+                    size++;
+
+                    
+                } else {
+                    this.left.addNode(n);
+                }
+            } else if ( c > 0) {
+                if ( this.right == null ) {
+                    this.right = n;
+                    size++;
+                    
+                } else { 
+                    this.right.addNode(n);
+                }
+            }
+        }        
+
+     
+    }
+    
+    public void add(Comparable obj) {
+        Node n = new Node();
+        n.data = obj;
+        n.left = null;
+        n.right = null;
+        
+        if ( root == null ) {
+            root = n;
+            size++;
+        } else {
+            root.addNode(n);
+        }
+    }
+    
+    public int size() {
+        return this.size;
+    }
+    
+    public void print () {
+        print (root);
+        System.out.println();
+    }
+    
+    public void print (Node parent) {
+        if ( parent == null) { 
+            // return
+        } else {
+            //print (parent.left);
+            //System.out.println (parent.data);
+            //print (parent.right);
+            
+            print (parent.right);
+            System.out.println (parent.data);
+            print (parent.left);
+            
+        }
+    }
+    
+    public boolean search (Comparable obj) {
+        
+        if ( this.root == null ) {
+            return false;
+            
+        } else {
+            int side = obj.compareTo(this.root);
+            
+            if ( side == 0 ) {
+                return true;
+                
+            } else if ( side < 0 ) {
+                search(this.root.left.data);
+                
+            } else if ( side > 0 ) {
+                search(this.root.right.data);
+            }            
+            
+        }
+        
+        return true;
+        
+    }
+}
+
+
+
+public class Tester {
+    
+    public static void main (String[] args) {
+        
+        BSTree tree = new BSTree();
+        Random rand = new Random();
+        
+        for ( int i = 0; i< 10; i++) {
+            tree.add(rand.nextInt(50));
+        }
+        
+        tree.print();
+        System.out.println ("Size..........: " + tree.size());
+        System.out.println ("Search for....: " + tree.search(1));
+        
+    }
+    
+}
