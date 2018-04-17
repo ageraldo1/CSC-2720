@@ -35,11 +35,23 @@ public class Tester {
         
         
         System.out.println ("**************************************************");
-        System.out.println ("List............: " + set);
-        System.out.println ("Size............: " + list.size());
-        System.out.println ("isEmpty.........: " + list.isEmpty());
-        System.out.println ("Minium value....: " + list.min() );
-        System.out.println ("Maximum value...: " + list.max() );
+        System.out.println ("List..............: " + set);
+        System.out.println ("Size..............: " + list.size());
+        System.out.println ("isEmpty...........: " + list.isEmpty());
+        System.out.println ("Root..............: " + list.getRoot());
+        System.out.println ("Minium value......: " + list.min() );
+        System.out.println ("Maximum value.....: " + list.max() );
+        
+        System.out.print   ("In-Transverse.....: " );
+            list.transverse(Tree.transversalOrder.IN);
+            System.out.println();
+        System.out.print   ("Post-Transverse...: " );
+            list.transverse(Tree.transversalOrder.POST);
+            System.out.println();
+        System.out.print   ("Pre-Transverse....: " );
+            list.transverse(Tree.transversalOrder.PRE);
+            System.out.println();
+            
         System.out.println ("**************************************************");
         
     }

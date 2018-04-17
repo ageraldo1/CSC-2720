@@ -12,7 +12,13 @@ package com.gsu.classwork.trees.binarysearch;
  */
 public interface Tree<T> {
     
-    public void transverse();
+    public enum transversalOrder {
+        PRE,
+        IN,
+        POST
+    }
+    
+    public void transverse(transversalOrder order);
     
     public void insert(T element);
     
@@ -25,4 +31,7 @@ public interface Tree<T> {
     public int size();
     
     public boolean isEmpty();
+    
+    public T getRoot();
+    
 }

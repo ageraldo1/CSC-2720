@@ -22,8 +22,42 @@ public class GenericBinarySearchTree<T extends Comparable<T>> implements Tree<T>
     
 
     @Override
-    public void transverse() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void transverse(transversalOrder order) {
+        if ( this.root != null) {
+            if ( order == transversalOrder.IN) {
+                doInTransverse(this.root);
+                
+            } else if ( order == transversalOrder.PRE) {
+                doPreTransverse(this.root);
+                
+            } else if ( order == transversalOrder.POST) {
+                doPostTransverse(this.root);
+            }
+        }
+    }
+    
+    private void doInTransverse(Node<T> root) {
+        
+        if (root.getLeftNode() != null ) doInTransverse(root.getLeftNode());
+
+        System.out.print(root.getNodeElement() + ", ");
+
+        if ( root.getRightNode() != null ) doInTransverse(root.getRightNode());        
+    }
+    
+    private void doPostTransverse(Node<T> root) {
+        if (root.getLeftNode() != null ) doPostTransverse(root.getLeftNode());
+        
+        if ( root.getRightNode() != null ) doPostTransverse(root.getRightNode());        
+        
+        System.out.print(root.getNodeElement() + ", ");
+    }
+    
+    private void doPreTransverse(Node<T> root) {
+        System.out.print(root.getNodeElement() + ", ");
+
+        if (root.getLeftNode() != null ) doPostTransverse(root.getLeftNode());
+        if ( root.getRightNode() != null ) doPostTransverse(root.getRightNode());        
     }
 
     @Override
@@ -118,6 +152,15 @@ public class GenericBinarySearchTree<T extends Comparable<T>> implements Tree<T>
     @Override
     public boolean isEmpty() {
         return ( this.size == 0);
+    }
+
+    @Override
+    public T getRoot() {
+        if ( this.root == null ) {
+            return null;
+        } else { 
+            return this.root.getNodeElement();
+        }
     }
     
     
