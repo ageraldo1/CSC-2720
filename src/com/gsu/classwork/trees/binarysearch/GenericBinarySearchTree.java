@@ -144,7 +144,8 @@ public class GenericBinarySearchTree<T extends Comparable<T>> implements Tree<T>
         } else { // case 3: node has 2 children
             Node<T> successor = getSuccessor(node.getRightNode()); // find and save successor in memory
             
-            remove(node.getRightNode()); // remove it
+            //remove(node.getRightNode()); // remove it
+            remove(successor);
             
             node.setNodeElement(successor.getNodeElement()); // replace node to be deleted with successor data
         }            

@@ -79,7 +79,7 @@ public class Tester {
         System.out.println (list.getRoot());
         
         //---> error  : list.remove(2);
-        list.remove(40);
+        list.remove(20);
         System.out.println (list.getRoot());
         list.transverse(Tree.transversalOrder.IN);
         System.out.println ();
