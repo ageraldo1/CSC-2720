@@ -34,4 +34,6 @@ public interface Tree<T> {
     
     public T getRoot();
     
+    public boolean contains(T element);
+    
 }

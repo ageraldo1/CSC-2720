@@ -5,6 +5,9 @@
  */
 package com.gsu.classwork.trees.binarysearch;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author Alexandre
@@ -63,24 +66,24 @@ public class GenericBinarySearchTree<T extends Comparable<T>> implements Tree<T>
     @Override
     public void insert(T element) {
         
-        Node<T> node = new Node<T>(element);
+        Node<T> node = new Node<>(element);
         
         if ( this.root == null ) {
             this.root = node;
             
         } else {
-            insertNode(element, this.root);
+            insert(element, this.root);
         }
         
         size++;
     }
     
-    private void insertNode(T newElement, Node<T> root) {
+    private void insert(T newElement, Node<T> root) {
         // recursive method to insert a node on the left or on the right
         
         if ( newElement.compareTo(root.getNodeElement()) < 0 ) {
             if ( root.getLeftNode() != null) {
-                insertNode(newElement, root.getLeftNode());                
+                insert(newElement, root.getLeftNode());                
                 
             } else {
                 Node<T> node = new Node<>(newElement);
@@ -89,7 +92,7 @@ public class GenericBinarySearchTree<T extends Comparable<T>> implements Tree<T>
             
         } else if ( newElement.compareTo(root.getNodeElement()) > 0) {
             if ( root.getRightNode() != null) {
-                insertNode(newElement, root.getRightNode());                
+                insert(newElement, root.getRightNode());                
                 
             } else {
                 Node<T> node = new Node<>(newElement);
@@ -103,7 +106,51 @@ public class GenericBinarySearchTree<T extends Comparable<T>> implements Tree<T>
 
     @Override
     public void remove(T element) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Node<T> node = contains(element, this.root);
+        
+        if ( node == null ) {
+            throw new IllegalArgumentException("The value " + element.toString() + " does not exists.");
+            
+        } else { 
+            remove(node);
+            this.size--;           
+        }        
+    }
+    
+    private void remove (Node<T> node) {
+        
+        if ( node.getLeftNode() == null && node.getRightNode() == null ) { // case 1 : leaf node
+            Node<T> parent = getParent(node.getNodeElement());
+
+            if ( node.getNodeElement().compareTo(parent.getNodeElement()) < 0 ) {
+                parent.setLeftNode(null);
+
+            } else {
+                parent.setRightNode(null);
+            }
+
+            node = null;
+
+        } else if ( node.getLeftNode() != null & node.getRightNode() == null) { // case 2 : one single child on the left
+            Node<T> parent = getParent(node.getNodeElement());
+
+            parent.setLeftNode(node.getLeftNode());
+            node = null;          
+
+        } else if ( node.getLeftNode() == null & node.getRightNode() != null) { // case 2 : one single child on the right
+            Node<T> parent = getParent(node.getNodeElement());
+
+            parent.setRightNode(node.getLeftNode());
+            node = null;            
+
+        } else { // case 3: node has 2 children
+            Node<T> successor = getSuccessor(node.getRightNode());            
+            
+            remove(node.getRightNode());
+            
+            node.setNodeElement(successor.getNodeElement());            
+        }            
+        
     }
 
     @Override
@@ -112,16 +159,16 @@ public class GenericBinarySearchTree<T extends Comparable<T>> implements Tree<T>
             return null;
             
         } else { 
-            return getMaxNode(this.root);
+            return max(this.root);
         }        
     }
     
-    private T getMaxNode(Node<T> root) {
+    private T max(Node<T> root) {
         if (root.getRightNode() == null) {
             return root.getNodeElement();
             
         } else { 
-            return getMaxNode(root.getRightNode());
+            return max(root.getRightNode());
         }
     }
 
@@ -131,16 +178,16 @@ public class GenericBinarySearchTree<T extends Comparable<T>> implements Tree<T>
             return null;
             
         } else { 
-            return getMinNode(this.root);
+            return min(this.root);
         }
     }
     
-    private T getMinNode(Node<T> root) {
+    private T min(Node<T> root) {
         if ( root.getLeftNode() == null) {
             return root.getNodeElement();
             
         } else { 
-            return getMinNode(root.getLeftNode());
+            return min(root.getLeftNode());
         }
     }
 
@@ -162,6 +209,80 @@ public class GenericBinarySearchTree<T extends Comparable<T>> implements Tree<T>
             return this.root.getNodeElement();
         }
     }
+
+    @Override
+    public boolean contains(T element) {
+        return (contains(element, this.root) != null);
+    }
+    
+    private Node<T> contains(T element, Node<T> root) {
+        
+        if ( root == null ) {
+            return null;
+            
+        } else {             
+            int direction = element.compareTo(root.getNodeElement());
+            
+            if ( direction < 0 ) {
+                 return contains(element, root.getLeftNode());
+                 
+            } else if ( direction > 0 ) {
+                return contains(element, root.getRightNode());
+                
+            } else {
+                return root;
+            }
+        }
+    }
+    
+       
+    private Node<T> getParent(T element) {
+        if ( !contains(element)) throw new IllegalArgumentException("The value " + element.toString() + " does not exists.");
+        
+        Node<T> parent = null;
+        Node<T> node   = this.root;
+        
+        while ( node != null) {
+            if ( element.compareTo(node.getNodeElement()) < 0 )  {
+                parent = node;
+                node   = node.getLeftNode();
+                
+            } else if ( element.compareTo(node.getNodeElement()) > 0 ) {
+                parent = node;
+                node   = node.getRightNode();
+                
+            } else { 
+                break;
+            }
+        }
+        
+        if ( parent == null ) {
+            return node;
+            
+        } else { 
+            return parent;
+        }
+    }
+    
+    
+    private Node<T> getPredecessor(Node<T> root) {
+       if ( root.getRightNode() != null )  {
+           return getPredecessor(root.getRightNode());
+           
+       } else {
+           return root;
+       }        
+    }
+    
+    private Node<T> getSuccessor(Node<T> root) {
+        if ( root.getLeftNode() == null) {
+            return root;
+            
+        } else { 
+            return getSuccessor(root.getLeftNode());
+        }
+    }
+    
     
     
 }
