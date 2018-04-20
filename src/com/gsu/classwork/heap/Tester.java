@@ -14,24 +14,29 @@ import java.util.Scanner;
 public class Tester {
     
     public static void main (String[] args) {
-        Heap<Integer> hp = new Heap<Integer>();
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter next int, 'done' to stop: ");
-        String line = sc.next();
-        while (!line.equals("done")) {
-            hp.insert(Integer.parseInt(line));
-            System.out.println(hp);
-            System.out.print("Enter next int, 'done' to stop: ");
-            line = sc.next();
-        }
-         
-        while (!hp.isEmpty()) {
-            int max = hp.delete();
-            System.out.println(max + " " + hp);
-        }    
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        
+        queue.add(1);
+        queue.add(3);
+        queue.add(5);
+        queue.add(100);
+        queue.add(500);
+        
+        System.out.println ("Queue size......: " + queue.size());
+        System.out.println ("IsEmpty.........: " + queue.isEmpty());
+        System.out.println ("Peek............: " + queue.peek());
+        System.out.println ("Queue...........: " + queue.toString());
+        System.out.println ("Remove top......: " + queue.remove());
+        System.out.println ("Queue...........: " + queue.toString());
+        
+        queue.add(10000);
+        System.out.println ("Peek............: " + queue.peek());
         
         
     }
+    
+        
+        
     
     
 }
