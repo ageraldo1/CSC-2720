@@ -116,6 +116,17 @@ public class BinarySearchTree<T extends Comparable<T>> {
        if ( node.right != null ) transverse ( node.right);
    }
    
+   public void remove(T element) {
+       if ( this.root != null) {
+           remove (element, this.root);
+       }       
+   }
+   
+   private void remove(T element, Node<T> node) {
+       
+   }
+   
+   
     
     
     
